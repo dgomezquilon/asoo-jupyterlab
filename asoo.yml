@@ -1,0 +1,10 @@
+jupyterlab_setup:
+  python3:
+    sudo: true
+    commands:
+      - 'apt -y install python3'
+      - 'apt -y install python3-pip'
+  jupyterlab:
+    sudo: true
+    commands:
+      - 'pip3 install jupyterlab'

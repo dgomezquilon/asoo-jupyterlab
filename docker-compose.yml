@@ -1,0 +1,18 @@
+version: '3.0'
+services:
+  jupyter_lab:
+    restart: on-failure
+    image: qoomon/docker-host
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    expose:
+      - "8888"
+    networks:
+      - nginx-net
+    environment:
+      - VIRTUAL_PORT=8888
+      - VIRTUAL_HOST=${domain}
+      - LETSENCRYPT_HOST=${domain}
+      - LETSENCRYPT_EMAIL=${letsencrypt_email}
+networks:
+  nginx-net:
+    external: true
