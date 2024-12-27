@@ -12,4 +12,30 @@ fi
 echo "Installing JupyterLab..."
 pip3 install jupyterlab
 
+echo "Installing Dracula Theme..."
+pip3 install JLDracula
+
+echo "Set JLDracula Theme..."
+settings_file="themes.jupyterlab-settings"
+rm -rf $settings_file
+touch $settings_file
+
+cat >$settings_file << EOF
+{
+    // By Asoo
+    // Theme
+    // @jupyterlab/apputils-extension:themes
+    // Theme manager settings.
+    // *************************************
+
+    // Selected Theme
+    // Application-level visual styling theme. Ignored when Adaptive Theme is enabled.
+    "theme": "JLDracula"
+}
+EOF
+
+rm -rf ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/themes.jupyterlab-settings
+mkdir -p ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/
+mv themes.jupyterlab-settings ~/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/.
+
 echo "JupyterLab installed."
