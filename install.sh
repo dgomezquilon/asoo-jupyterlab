@@ -10,7 +10,7 @@ else
 fi
 
 echo "Installing JupyterLab..."
-pip3 install jupyterlab
+pip3 install "jupyterlab<4.1.0"
 
 echo "Installing Dracula Theme..."
 pip3 install JLDracula
