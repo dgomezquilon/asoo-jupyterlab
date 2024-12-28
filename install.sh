@@ -9,6 +9,8 @@ else
     echo "pip3 is installed"
 fi
 
+find /usr/lib/ -type f -name "EXTERNALLY-MANAGED" -exec rm -f {} \;
+
 echo "Installing JupyterLab..."
 pip3 install "jupyterlab<4.1.0"
 
