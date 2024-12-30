@@ -9,13 +9,11 @@ else
     echo "pip3 is installed"
 fi
 
-find /usr/lib/ -type f -name "EXTERNALLY-MANAGED" -exec rm -f {} \;
-
 echo "Installing JupyterLab..."
-pip3 install "jupyterlab<4.1.0"
+pip3 install "jupyterlab<4.1.0" --break-system-packages
 
 echo "Installing Dracula Theme..."
-pip3 install JLDracula
+pip3 install JLDracula --break-system-packages
 
 echo "Set JLDracula Theme..."
 settings_file="themes.jupyterlab-settings"
