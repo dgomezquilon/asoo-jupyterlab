@@ -7,11 +7,28 @@ services:
       - "${port}"
     networks:
       - ${network}
-    environment:
-      - VIRTUAL_PORT=${port}
-      - VIRTUAL_HOST=${domain}
-      - LETSENCRYPT_HOST=${domain}
-      - LETSENCRYPT_EMAIL=${letsencrypt_email}
+    labels:
+      - "traefik.enable=true"
+
+      # router - jupyter
+      - "traefik.http.routers.jupyterlab-https.rule=Host(`${domain}`)"
+      - "traefik.http.routers.jupyterlab-https.entrypoints=websecure"
+      - "traefik.http.routers.jupyterlab-https.service=jupyter-lab"
+      - "traefik.http.routers.jupyterlab-https.tls.certresolver=ssl-resolver"
+      - "traefik.http.routers.jupyterlab-https.middlewares=gzip,sslheader,hsts"
+      - "traefik.http.routers.jupyterlab-https.priority=50"
+
+      # services
+      - "traefik.http.services.jupyter-lab.loadbalancer.server.port=${port}"
+      - "traefik.docker.network=traefik-net"
+
+      # various middlewares
+      - "traefik.http.middlewares.gzip.compress=true"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.hsts.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.hsts.headers.stsPreload=true"
+      - "traefik.http.middlewares.hsts.headers.forceSTSHeader=true"
 networks:
   ${network}:
     external: true
