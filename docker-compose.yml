@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.jupyterlab-https.rule=Host(`${domain}`)"
       - "traefik.http.routers.jupyterlab-https.entrypoints=websecure"
       - "traefik.http.routers.jupyterlab-https.service=jupyter-lab"
-      - "traefik.http.routers.jupyterlab-https.tls.certresolver=ssl-resolver"
+      - "traefik.http.routers.jupyterlab-https.tls.certresolver=tls-resolver"
       - "traefik.http.routers.jupyterlab-https.middlewares=gzip,sslheader,hsts"
       - "traefik.http.routers.jupyterlab-https.priority=50"
 
